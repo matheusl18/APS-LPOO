@@ -22,4 +22,15 @@ public class Authors {
 	 public String getFname() {
 		 return this.fname;
 	 }
+	 
+	 @Override
+	    public String toString(){
+	        String res = "classe " + this.getClass() + "\n";
+	        res += "authors_id: " + this.authors_id;
+	        res += "nome: " + this.nome + "\n";
+	        res += "fname: " + this.fname + "\n";
+	        return res;
+	    }
+	 
+	 
 }

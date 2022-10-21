@@ -47,6 +47,32 @@ public class AcessoBancodeDados {
 			
 		}
 	
+	public List<Publishers> getpublishers() {
+
+		  List<Publishers> publishers = new ArrayList<>();
+
+		  final String query = "SELECT * FROM publishers;";
+		  try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
+
+		    Statement stm = c.createStatement();
+		    ResultSet rs = stm.executeQuery(query);
+
+		    while(rs.next()) {
+		      int publishers_id = rs.getInt("publisher_id");
+		      String nome = rs.getString("name");
+		      String URL = rs.getString("URL");
+		      Publishers publisher = new Publishers(publishers_id, nome, URL);
+		      publishers.add(publisher);
+		    }
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+
+		  return publishers;
+		}
+	
 	public void addAuthors(Authors authors) {
 		final String query = "INSERT INTO authors VALUES(?,?,?)";
 		
@@ -74,7 +100,7 @@ public class AcessoBancodeDados {
 
 		  List<Authors> authors = new ArrayList<>();
 
-		  final String query = "SELECT * FROM Authors;";
+		  final String query = "SELECT * FROM authors;";
 		  try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
 
 		    Statement stm = c.createStatement();
@@ -122,11 +148,11 @@ public class AcessoBancodeDados {
 	}
 	
 	
-	public List<Books> getTodosBooks() {
+	public List<Books> getBooks() {
 
 	  List<Books> books = new ArrayList<>();
 
-	  final String query = "SELECT * FROM Books;";
+	  final String query = "SELECT * FROM books;";
 	  try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
 
 	    Statement stm = c.createStatement();
@@ -152,5 +178,52 @@ public class AcessoBancodeDados {
 	  return books;
 	}
 	
+	public void addBooksauthors(Booksauthors booksauthors) {
+		final String query = "INSERT INTO booksauthors VALUES(?,?,?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			pstm.setString(1, booksauthors.getisbn());
+		    pstm.setInt(2, booksauthors.getauthor_id());
+		    pstm.setInt(3, booksauthors.getseq_no());
 
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de adicionar Booksauthors " + booksauthors + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
+	public List<Booksauthors> getBooksauthors() {
+
+		  List<Booksauthors> booksauthors = new ArrayList<>();
+
+		  final String query = "SELECT * FROM booksauthors;";
+		  try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
+
+		    Statement stm = c.createStatement();
+		    ResultSet rs = stm.executeQuery(query);
+
+		    while(rs.next()) {
+		      String isbn = rs.getString("isbn");
+		      int author_id = rs.getInt("author_id");
+		      int seq_no = rs.getInt("seq_no");
+		      Booksauthors booksauthor = new Booksauthors(isbn, author_id, seq_no);
+		      booksauthors.add(booksauthor);
+		    }
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+
+		  return booksauthors;
+		}
 }

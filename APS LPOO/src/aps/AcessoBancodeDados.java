@@ -69,6 +69,34 @@ public class AcessoBancodeDados {
 		  }
 			
 		}
+	
+	public List<Authors> getAuthors() {
+
+		  List<Authors> authors = new ArrayList<>();
+
+		  final String query = "SELECT * FROM Authors;";
+		  try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
+
+		    Statement stm = c.createStatement();
+		    ResultSet rs = stm.executeQuery(query);
+
+		    while(rs.next()) {
+		      int authors_id = rs.getInt("author_id");
+		      String nome = rs.getString("name");
+		      String fnome = rs.getString("fname");
+		      Authors author = new Authors(authors_id, nome, fnome);
+		      authors.add(author);
+		    }
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+
+		  return authors;
+		}
+	
 	public void addBooks(Books books) {
 		final String query = "INSERT INTO books VALUES(?,?,?,?)";
 		

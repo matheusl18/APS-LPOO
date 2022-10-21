@@ -15,6 +15,12 @@ public class Teste {
 			System.out.println(book);
 		}
 		
+		List<Authors> authors = ABD.getAuthors();
+		
+		for(Authors author: authors) {
+			System.out.println(author);
+		}
+		
 
 		//new AcessoBancodeDados().addPublishers(new Publishers(0, "Panini", "https://panini.com.br"));
 		//new AcessoBancodeDados().addAuthors(new Authors(0, "Mauricio de Souza", "Osamu Tezuka"));

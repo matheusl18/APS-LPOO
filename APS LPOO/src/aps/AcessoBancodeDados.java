@@ -73,6 +73,27 @@ public class AcessoBancodeDados {
 		  return publishers;
 		}
 	
+	public void delPublishers(String name) {
+		final String query = "DELETE FROM publishers WHERE name = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			pstm.setString(1, name);
+		   
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de remover o publishers " + name + ": " + result);
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
 	public void addAuthors(Authors authors) {
 		final String query = "INSERT INTO authors VALUES(?,?,?)";
 		

@@ -309,7 +309,7 @@ public class AcessoBancodeDados {
 	  return books;
 	}
 	
-public List<Books> buscaBooks(String titleKey) {
+	public List<Books> buscaBooks(String titleKey) {
 		
 		List<Books> books = new ArrayList<>();
 		
@@ -363,7 +363,7 @@ public List<Books> buscaBooks(String titleKey) {
 			
 		}
 	
-	public void delBooksAuthors(int id) {
+	public void delBooksauthors(int id) {
 		final String query = "DELETE FROM booksauthors WHERE author_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
@@ -387,7 +387,7 @@ public List<Books> buscaBooks(String titleKey) {
 			
 		}
 	
-	public void updateBooksAuthors(String isbn, int author_id, int seq_no) {
+	public void updateBooksauthors(String isbn, int author_id, int seq_no) {
 		final String query = "UPDATE booksauthors SET isbn = (?), author_id = (?) WHERE seq_no = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
@@ -432,7 +432,7 @@ public List<Books> buscaBooks(String titleKey) {
 		    }
 			  
 			  
-	public List<Booksauthors> buscaBooksAuthors(String isbnKey) {
+	public List<Booksauthors> buscaBooksauthors(String isbnKey) {
 		
 		List<Booksauthors> booksauthors = new ArrayList<>();
 		

@@ -11,10 +11,12 @@ public class Teste {
 		//new AcessoBancodeDados().addAuthors(new Authors(0, "Mauricio de Souza", "Osamu Tezuka"));
 		//new AcessoBancodeDados().delPublishers("Panini");
 		//new AcessoBancodeDados().updatePublishers("Pononi", "https://pononi.com.br", "Panini");
+		//new AcessoBancodeDados().delBooks("The C++ Programming Language");
+		//new AcessoBancodeDados().updateBooks("Galinha Pintadinha", 13.00, "0-7434-1146-3");
 		
 		AcessoBancodeDados  ABD = new AcessoBancodeDados();
 		
-		List<Publishers> publishers = ABD.getpublishers();
+		//List<Publishers> publishers = ABD.getpublishers();
 		
 		//for(Publishers publisher: publishers) {
 		//	System.out.println(publisher);
@@ -27,8 +29,15 @@ public class Teste {
 //			System.out.println(publisher);
 //		}
 		
-		//List<Books> books = ABD.getBooks();
-		
+//		List<Books> books = ABD.getBooks();
+//		
+//		books = ABD.buscaBooks("Galinha Pintadinha");
+//		
+//		System.out.println();
+//		for(Books book: books) {
+//			System.out.println(book);
+//		}
+//		
 		//for(Books book: books) {
 		//	System.out.println(book);
 		//}

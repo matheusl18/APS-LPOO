@@ -229,6 +229,56 @@ public class AcessoBancodeDados {
 	}
 	
 	
+	public void delBooks(String title) {
+		final String query = "DELETE FROM books WHERE title = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			
+			
+			pstm.setString(1, title);
+		   
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de remover o book " + title + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
+	public void updateBooks(String title, double price, String isbn) {
+		final String query = "UPDATE books SET title = (?), price = (?) WHERE isbn = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			
+			
+			pstm.setString(1, title);
+		    pstm.setDouble(2, price);
+		    pstm.setString(3, isbn);
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de alterar o book "  + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
+	
 	public List<Books> getBooks() {
 
 	  List<Books> books = new ArrayList<>();
@@ -257,6 +307,37 @@ public class AcessoBancodeDados {
 	  }
 
 	  return books;
+	}
+	
+public List<Books> buscaBooks(String titleKey) {
+		
+		List<Books> books = new ArrayList<>();
+		
+		final String query = "SELECT * FROM books WHERE LOWER(title) LIKE LOWER(?);";
+		try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			pstm.setString(1, "%" + titleKey + "%");
+			
+			ResultSet rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				String title = rs.getString("title");
+			    String isbn = rs.getString("isbn");
+			    int publisher_id = rs.getInt("publisher_id");
+			    int price = rs.getInt("Price");
+				Books book = new Books(title, isbn, publisher_id, price);
+				books.add(book);
+			}
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return books;
 	}
 	
 	public void addBooksauthors(Booksauthors booksauthors) {

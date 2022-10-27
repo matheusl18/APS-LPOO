@@ -9,14 +9,23 @@ public class Teste {
 		//new AcessoBancodeDados().addBooksauthors(new Booksauthors("0-13020608-5", 8980, 4));
 		//new AcessoBancodeDados().addPublishers(new Publishers(0, "Panini", "https://panini.com.br"));
 		//new AcessoBancodeDados().addAuthors(new Authors(0, "Mauricio de Souza", "Osamu Tezuka"));
+		//new AcessoBancodeDados().delPublishers("Panini");
+		//new AcessoBancodeDados().updatePublishers("Pononi", "https://pononi.com.br", "Panini");
 		
 		AcessoBancodeDados  ABD = new AcessoBancodeDados();
 		
-		//List<Publishers> publishers = ABD.getpublishers();
+		List<Publishers> publishers = ABD.getpublishers();
 		
 		//for(Publishers publisher: publishers) {
 		//	System.out.println(publisher);
 		//}
+		
+//	 	publishers = ABD.buscaPublishers("Panini");
+//		
+//		System.out.println();
+//		for(Publishers publisher: publishers) {
+//			System.out.println(publisher);
+//		}
 		
 		//List<Books> books = ABD.getBooks();
 		

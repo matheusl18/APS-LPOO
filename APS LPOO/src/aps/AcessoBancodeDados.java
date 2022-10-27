@@ -363,6 +363,56 @@ public List<Books> buscaBooks(String titleKey) {
 			
 		}
 	
+	public void delBooksAuthors(int id) {
+		final String query = "DELETE FROM booksauthors WHERE author_id = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			
+			
+			pstm.setInt(1, id);
+		   
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de remover o booksauthors " + id + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
+	public void updateBooksAuthors(String isbn, int author_id, int seq_no) {
+		final String query = "UPDATE booksauthors SET isbn = (?), author_id = (?) WHERE seq_no = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			
+			
+			pstm.setString(1, isbn);
+		    pstm.setInt(2, author_id);
+		    pstm.setInt(3, seq_no);
+		   
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de alterar o booksauthors "  + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
 	public List<Booksauthors> getBooksauthors() {
 
 		  List<Booksauthors> booksauthors = new ArrayList<>();
@@ -380,6 +430,38 @@ public List<Books> buscaBooks(String titleKey) {
 		      Booksauthors booksauthor = new Booksauthors(isbn, author_id, seq_no);
 		      booksauthors.add(booksauthor);
 		    }
+			  
+			  
+	public List<Booksauthors> buscaBooksAuthors(String isbnKey) {
+		
+		List<Booksauthors> booksauthors = new ArrayList<>();
+		
+		final String query = "SELECT * FROM booksauthors WHERE LOWER(isbn) LIKE LOWER(?);";
+		try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			pstm.setString(1, "%" + isbnKey + "%");
+			
+			ResultSet rs = pstm.executeQuery();
+			
+			
+			while(rs.next()) {
+				String isbn = rs.getString("isbn");
+				int author_id = rs.getInt("author_id");
+				int seq_no = rs.getInt("seq_no");
+				Booksauthors booksauthor = new Booksauthors(isbn, author_id, seq_no);
+				booksauthors.add(booksauthor);
+			}
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return booksauthors;
+	}
 
 
 		  }catch(Exception e) {

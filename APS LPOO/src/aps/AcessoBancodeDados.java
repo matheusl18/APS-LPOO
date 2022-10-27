@@ -47,6 +47,57 @@ public class AcessoBancodeDados {
 			
 		}
 	
+	
+	public void delPublishers(String name) {
+		final String query = "DELETE FROM publishers WHERE name = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			
+			
+			pstm.setString(1, name);
+		   
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de remover o publishers " + name + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
+	public void updatePublishers(String oname, String url, String nname) {
+		final String query = "UPDATE publishers SET name = (?), url = (?) WHERE name = (?)";
+		
+		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+			
+			PreparedStatement pstm = c.prepareStatement(query);
+			
+			
+			
+			pstm.setString(1, oname);
+		    pstm.setString(2, url);
+		    pstm.setString(3, nname);
+		   
+
+		    int result = pstm.executeUpdate();
+
+		    System.out.println("Resultado de alterar o publishers "  + ": " + result);
+
+
+
+		  }catch(Exception e) {
+		    e.printStackTrace();
+		  }
+			
+		}
+	
 	public List<Publishers> getpublishers() {
 
 		  List<Publishers> publishers = new ArrayList<>();
@@ -73,26 +124,35 @@ public class AcessoBancodeDados {
 		  return publishers;
 		}
 	
-	public void delPublishers(String name) {
-		final String query = "DELETE FROM publishers WHERE name = (?)";
+	public List<Publishers> buscaPublishers(String nomeKey) {
 		
-		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
+		List<Publishers> publishers = new ArrayList<>();
+		
+		final String query = "SELECT * FROM publishers WHERE LOWER(name) LIKE LOWER(?);";
+		try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
 			PreparedStatement pstm = c.prepareStatement(query);
 			
-			pstm.setString(1, name);
-		   
-
-		    int result = pstm.executeUpdate();
-
-		    System.out.println("Resultado de remover o publishers " + name + ": " + result);
-
-
-		  }catch(Exception e) {
-		    e.printStackTrace();
-		  }
+			pstm.setString(1, "%" + nomeKey + "%");
 			
+			ResultSet rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				int publishers_id = rs.getInt("publisher_id");
+				String nome = rs.getString("name");
+				String URL = rs.getString("URL");
+				Publishers publisher = new Publishers(publishers_id, nome, URL);
+				publishers.add(publisher);
+			}
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
+		
+		return publishers;
+	}
 	
 	public void addAuthors(Authors authors) {
 		final String query = "INSERT INTO authors VALUES(?,?,?)";

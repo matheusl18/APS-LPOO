@@ -387,8 +387,8 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	public void updateBooksauthors(String isbn, int author_id, int seq_no) {
-		final String query = "UPDATE booksauthors SET isbn = (?), author_id = (?) WHERE seq_no = (?)";
+	public void updateBooksauthors(String isbn, int seq_no, int author_id) {
+		final String query = "UPDATE booksauthors SET isbn = (?), seq_no = (?) WHERE author_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -397,8 +397,8 @@ public class AcessoBancodeDados {
 			
 			
 			pstm.setString(1, isbn);
-		    pstm.setInt(2, author_id);
-		    pstm.setInt(3, seq_no);
+		    pstm.setInt(2, seq_no);
+		    pstm.setInt(3, author_id);
 		   
 
 		    int result = pstm.executeUpdate();
@@ -430,6 +430,13 @@ public class AcessoBancodeDados {
 		      Booksauthors booksauthor = new Booksauthors(isbn, author_id, seq_no);
 		      booksauthors.add(booksauthor);
 		    }
+		    
+		  }catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return booksauthors;
+		}
 			  
 			  
 	public List<Booksauthors> buscaBooksauthors(String isbnKey) {
@@ -454,14 +461,6 @@ public class AcessoBancodeDados {
 				booksauthors.add(booksauthor);
 			}
 			
-			
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return booksauthors;
-	}
 
 
 		  }catch(Exception e) {
@@ -470,4 +469,5 @@ public class AcessoBancodeDados {
 
 		  return booksauthors;
 		}
+	
 }

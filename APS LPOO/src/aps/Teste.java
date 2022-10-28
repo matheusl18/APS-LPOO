@@ -6,13 +6,15 @@ public class Teste {
 	public static void main(String[] args) {
 		AcessoBancodeDados.testaConnection();
 		//new AcessoBancodeDados().addBooks(new Books("Turma da Monica", "0-13020608-5", 13, 40));
-		//new AcessoBancodeDados().addBooksauthors(new Booksauthors("0-13020608-5", 8980, 4));
 		//new AcessoBancodeDados().addPublishers(new Publishers(0, "Panini", "https://panini.com.br"));
 		//new AcessoBancodeDados().addAuthors(new Authors(0, "Mauricio de Souza", "Osamu Tezuka"));
+		//new AcessoBancodeDados().addBooksauthors(new Booksauthors("0-13020608-5", 8980, 4));
 		//new AcessoBancodeDados().delPublishers("Panini");
+		//new AcessoBancodeDados().delBooks("Turma da Monica");
+		//new AcessoBancodeDados().delBooksauthors(8980);
 		//new AcessoBancodeDados().updatePublishers("Pononi", "https://pononi.com.br", "Panini");
-		//new AcessoBancodeDados().delBooks("The C++ Programming Language");
 		//new AcessoBancodeDados().updateBooks("Galinha Pintadinha", 13.00, "0-7434-1146-3");
+		//new AcessoBancodeDados().updateBooksauthors("0-13-020601-6", 3, 8980);
 		
 		AcessoBancodeDados  ABD = new AcessoBancodeDados();
 		
@@ -30,6 +32,10 @@ public class Teste {
 //		}
 		
 //		List<Books> books = ABD.getBooks();
+		
+		//for(Books book: books) {
+				//	System.out.println(book);
+				//}
 //		
 //		books = ABD.buscaBooks("Galinha Pintadinha");
 //		
@@ -38,9 +44,6 @@ public class Teste {
 //			System.out.println(book);
 //		}
 //		
-		//for(Books book: books) {
-		//	System.out.println(book);
-		//}
 		
 		//List<Authors> authors = ABD.getAuthors();
 		
@@ -53,6 +56,13 @@ public class Teste {
 		//for(Booksauthors booksauthor: booksauthors) {
 			//System.out.println(booksauthor);
 		//}
+		
+//		booksauthors = ABD.buscaBooksauthors("0-13-020601-6");
+//		
+//		System.out.println();
+//		for(Booksauthors bookauthor: booksauthors) {
+//			System.out.println(bookauthor);
+//		}
 	}
 
 }

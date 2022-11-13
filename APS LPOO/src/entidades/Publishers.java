@@ -22,6 +22,15 @@ public class Publishers {
 	 public String getURL() {
 		 return this.URL;
 	 }
+	 
+	 @Override
+	    public String toString(){
+	        String res = "classe " + this.getClass() + "\n";
+	        res += "publishers_id: " + this.publishers_id + "\n";
+	        res += "nome: " + this.nome + "\n";
+	        res += "URL: " + this.URL + "\n";
+	        return res;
+	    }
 }
 	
 

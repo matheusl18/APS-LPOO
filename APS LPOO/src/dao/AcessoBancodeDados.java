@@ -1,4 +1,6 @@
 package dao;
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +14,7 @@ import entidades.Booksauthors;
 import entidades.Publishers;
 
 
-public class AcessoBancodeDados {
+public class AcessoBancodeDados implements Dao{
 	
 	static private String USER = "root";
 	static private String PASS = "";
@@ -28,6 +30,7 @@ public class AcessoBancodeDados {
 		}
 	}
 	
+	@Override
 	public void addPublishers(Publishers publishers) {
 		final String query = "INSERT INTO publishers VALUES(?,?,?)";
 		
@@ -51,9 +54,9 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	
-	public void delPublishers(String name) {
-		final String query = "DELETE FROM publishers WHERE name = (?)";
+	@Override
+	public void delPublishers(int id) {
+		final String query = "DELETE FROM publishers WHERE publisher_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -61,12 +64,12 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, name);
+			pstm.setInt(1, id);
 		   
 
 		    int result = pstm.executeUpdate();
 
-		    System.out.println("Resultado de remover o publishers " + name + ": " + result);
+		    System.out.println("Resultado de remover o publishers " + id + ": " + result);
 
 
 
@@ -76,8 +79,9 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	public void updatePublishers(String oname, String url, String nname) {
-		final String query = "UPDATE publishers SET name = (?), url = (?) WHERE name = (?)";
+	@Override
+	public void updatePublishers(Publishers publishers) {
+		final String query = "UPDATE publishers SET name = (?), url = (?) WHERE publisher_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -85,9 +89,9 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, oname);
-		    pstm.setString(2, url);
-		    pstm.setString(3, nname);
+			pstm.setString(1, publishers.getNome());
+		    pstm.setString(2, publishers.getURL());
+		    pstm.setInt(3, publishers.getPublishers_id());
 		   
 
 		    int result = pstm.executeUpdate();
@@ -102,6 +106,7 @@ public class AcessoBancodeDados {
 			
 		}
 	
+	@Override
 	public List<Publishers> getpublishers() {
 
 		  List<Publishers> publishers = new ArrayList<>();
@@ -128,6 +133,7 @@ public class AcessoBancodeDados {
 		  return publishers;
 		}
 	
+	@Override
 	public List<Publishers> buscaPublishers(String nomeKey) {
 		
 		List<Publishers> publishers = new ArrayList<>();
@@ -158,6 +164,7 @@ public class AcessoBancodeDados {
 		return publishers;
 	}
 	
+	@Override
 	public void addAuthors(Authors authors) {
 		final String query = "INSERT INTO authors VALUES(?,?,?)";
 		
@@ -181,9 +188,9 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	
-	public void delAuthors (String authors_id) {
-		final String query = "DELETE FROM authors WHERE authors_id = (?)";
+	@Override
+	public void delAuthors (int authors_id) {
+		final String query = "DELETE FROM authors WHERE author_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -191,7 +198,7 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, authors_id);
+			pstm.setInt(1, authors_id);
 		   
 
 		    int result = pstm.executeUpdate();
@@ -207,9 +214,9 @@ public class AcessoBancodeDados {
 	}
 
 
-
-	public void updateAuthors(String authors_id, String nome, String fname) {
-		final String query = "UPDATE authors SET authors_id = (?), nome = (?) WHERE fnome = (?)";
+	@Override
+	public void updateAuthors(Authors authors) {
+		final String query = "UPDATE authors SET name = (?), fname = (?)  WHERE author_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -217,9 +224,9 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, authors_id);
-		    pstm.setString(2, nome);
-		    pstm.setString(3, fname);
+			pstm.setString(1, authors.getNome());
+		    pstm.setString(2, authors.getFname());
+		    pstm.setInt(3, authors.getAuthors_id());
 
 		    int result = pstm.executeUpdate();
 
@@ -233,7 +240,7 @@ public class AcessoBancodeDados {
 			
 		}
 
-	
+	@Override
 	public List<Authors> getAuthors() {
 
 		  List<Authors> authors = new ArrayList<>();
@@ -260,16 +267,19 @@ public class AcessoBancodeDados {
 
 		  return authors;
 		}
-	public List<Authors> buscaAuthors(String authors_idKey) {
+	
+	@Override
+	public List<Authors> buscaAuthors(String name, String fname) {
 		
 		List<Authors> authors = new ArrayList<>();
 		
-		final String query = "SELECT * FROM authors WHERE LOWER(authors_id) LIKE LOWER(?);";
+		final String query = "SELECT * FROM authors WHERE LOWER(name) LIKE LOWER(?) AND LOWER(fname) LIKE LOWER(?);";
 		try (Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
 			PreparedStatement pstm = c.prepareStatement(query);
 			
-			pstm.setString(1, "%" + authors_idKey + "%");
+			pstm.setString(1, "%" + name + "%");
+			pstm.setString(1, "%" + fname + "%");
 			
 			ResultSet rs = pstm.executeQuery();
 			
@@ -290,6 +300,7 @@ public class AcessoBancodeDados {
 		return authors;
 	}
 	
+	@Override
 	public void addBooks(Books books) {
 		final String query = "INSERT INTO books VALUES(?,?,?,?)";
 		
@@ -314,9 +325,9 @@ public class AcessoBancodeDados {
 			
 	}
 	
-	
-	public void delBooks(String title) {
-		final String query = "DELETE FROM books WHERE title = (?)";
+	@Override
+	public void delBooks(String isbn) {
+		final String query = "DELETE FROM books WHERE isbn = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -324,12 +335,12 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, title);
+			pstm.setString(1, isbn);
 		   
 
 		    int result = pstm.executeUpdate();
 
-		    System.out.println("Resultado de remover o book " + title + ": " + result);
+		    System.out.println("Resultado de remover o book " + isbn + ": " + result);
 
 
 
@@ -339,7 +350,8 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	public void updateBooks(String title, double price, String isbn) {
+	@Override
+	public void updateBooks(Books books) {
 		final String query = "UPDATE books SET title = (?), price = (?) WHERE isbn = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
@@ -348,9 +360,9 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, title);
-		    pstm.setDouble(2, price);
-		    pstm.setString(3, isbn);
+			pstm.setString(1, books.getTitle());
+		    pstm.setDouble(2, books.getPrice());
+		    pstm.setString(3, books.getIsbn());
 
 		    int result = pstm.executeUpdate();
 
@@ -364,7 +376,7 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	
+	@Override
 	public List<Books> getBooks() {
 
 	  List<Books> books = new ArrayList<>();
@@ -395,6 +407,7 @@ public class AcessoBancodeDados {
 	  return books;
 	}
 	
+	@Override
 	public List<Books> buscaBooks(String titleKey) {
 		
 		List<Books> books = new ArrayList<>();
@@ -426,6 +439,7 @@ public class AcessoBancodeDados {
 		return books;
 	}
 	
+	@Override
 	public void addBooksauthors(Booksauthors booksauthors) {
 		final String query = "INSERT INTO booksauthors VALUES(?,?,?)";
 		
@@ -449,6 +463,7 @@ public class AcessoBancodeDados {
 			
 		}
 	
+	@Override
 	public void delBooksauthors(int id) {
 		final String query = "DELETE FROM booksauthors WHERE author_id = (?)";
 		
@@ -473,7 +488,8 @@ public class AcessoBancodeDados {
 			
 		}
 	
-	public void updateBooksauthors(String isbn, int seq_no, int author_id) {
+	@Override
+	public void updateBooksauthors(Booksauthors booksauthors) {
 		final String query = "UPDATE booksauthors SET isbn = (?), seq_no = (?) WHERE author_id = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
@@ -482,9 +498,9 @@ public class AcessoBancodeDados {
 			
 			
 			
-			pstm.setString(1, isbn);
-		    pstm.setInt(2, seq_no);
-		    pstm.setInt(3, author_id);
+			pstm.setString(1, booksauthors.getisbn());
+		    pstm.setInt(2, booksauthors.getseq_no());
+		    pstm.setInt(3, booksauthors.getauthor_id());
 		   
 
 		    int result = pstm.executeUpdate();
@@ -499,6 +515,7 @@ public class AcessoBancodeDados {
 			
 		}
 	
+	@Override
 	public List<Booksauthors> getBooksauthors() {
 
 		  List<Booksauthors> booksauthors = new ArrayList<>();
@@ -524,7 +541,7 @@ public class AcessoBancodeDados {
 			return booksauthors;
 		}
 			  
-			  
+	@Override		  
 	public List<Booksauthors> buscaBooksauthors(String isbnKey) {
 		
 		List<Booksauthors> booksauthors = new ArrayList<>();

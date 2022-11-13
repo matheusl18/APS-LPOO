@@ -26,7 +26,7 @@ public class Authors {
 	 @Override
 	    public String toString(){
 	        String res = "classe " + this.getClass() + "\n";
-	        res += "authors_id: " + this.authors_id;
+	        res += "authors_id: " + this.authors_id + "\n";
 	        res += "nome: " + this.nome + "\n";
 	        res += "fname: " + this.fname + "\n";
 	        return res;

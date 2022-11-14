@@ -2,6 +2,7 @@ package view.janela;
 
 
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import entidades.Authors;
 import entidades.Books;
@@ -10,10 +11,14 @@ import entidades.Publishers;
 
 public interface ViewJFrame {
 	
-	void listarPublishers(Publishers publishers);
-	void listarAuthors(Authors authors);
-	void listarBooks(Books books);
-	void listarBooksauthors(Booksauthors booksauthors);
+	public void addActionListarPublishers(ActionListener al);
+	void listarPublishers(List<Publishers> publishers);
+	public void addActionListarAuthors(ActionListener al);
+	void listarAuthors(List<Authors> authors);
+	public void addActionListarBooks(ActionListener al);
+	void listarBooks(List<Books> books);
+	public void addActionListarBooksauthors(ActionListener al);
+	void listarBooksauthors(List<Booksauthors> booksauthors);
 	
 	public void addActionAdicionarPublishers(ActionListener al);
 	Publishers addPublishers();
@@ -44,6 +49,20 @@ public interface ViewJFrame {
 	String updateString();
 	int updateInt();
 	double updateDouble();
+	
+	public void addActionBuscaPublishers(ActionListener al);
+	public void srcPublishers(List<Publishers> publishers);
+	public String getKeyPublishersBusca();
+	public void addActionBuscaAuthors(ActionListener al);
+	public void srcAuthors(List<Authors> authors);
+	public String getKeyNameAuthorsBusca();
+	public String getKeyFnameAuthorsBusca();
+	public void addActionBuscaBooks(ActionListener al);
+	public void srcBooks(List<Books> books);
+	public String getKeyBooksBusca();
+	public void addActionBuscaBooksauthors(ActionListener al);
+	public void srcBooksauthors(List<Booksauthors> booksauthors);
+	public String getKeyBooksauthorsBusca();
 	
 
 }

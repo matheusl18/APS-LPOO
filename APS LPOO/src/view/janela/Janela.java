@@ -15,6 +15,7 @@ import entidades.Publishers;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
@@ -24,12 +25,19 @@ import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import dao.AcessoBancodeDados;
+import javax.swing.table.TableModel;
 
 public class Janela extends JFrame implements ViewJFrame{
 
 	private JPanel contentPane;
 	private JTextField nameAuthorsField;
 	private JTextField fnameAuthorsField;
+	DefaultTableModel modelAuthors = new DefaultTableModel(new Object[] {"ID", "Nome", "Sobrenome"}, 0);
+	DefaultTableModel modelsrcAuthors = new DefaultTableModel(new Object[] {"ID", "Nome", "Sobrenome"}, 0);
 
 	/**
 	 * Launch the application.
@@ -66,7 +74,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		
 		
 		JTabbedPane subPanelAuthors = new JTabbedPane(JTabbedPane.BOTTOM);
-		subPanelAuthors.setBounds(0, 192, 702, 198);
+		subPanelAuthors.setBounds(0, 130, 702, 234);
 		PanelAutores.add(subPanelAuthors);
 		subPanelAuthors.setVisible(false);
 		
@@ -104,7 +112,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		sentButtonAuthors.setBackground(new Color(73, 83, 113));
 		sentButtonAuthors.setForeground(new Color(240, 235, 227));
 		sentButtonAuthors.setFont(new Font("David Libre", Font.PLAIN, 11));
-		sentButtonAuthors.setBounds(578, 136, 89, 23);
+		sentButtonAuthors.setBounds(578, 155, 89, 23);
 		sentButtonAuthors.setText("Enviar");
 		sentButtonAuthors.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,16 +121,122 @@ public class Janela extends JFrame implements ViewJFrame{
 		});
 		painelAddAutores.add(sentButtonAuthors);
 		
+		JPanel painelGetAuthors = new JPanel();
+		subPanelAuthors.addTab("New tab", null, painelGetAuthors, null);
+		painelGetAuthors.setLayout(null);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		subPanelAuthors.addTab("New tab", null, scrollPane, null);
+		scrollPane.setBounds(10, 11, 677, 184);
+		painelGetAuthors.add(scrollPane);
 		
-		JLabel lblNewLabel = new JLabel("Selecione os autores que voc\u00EA dejesa excluir");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		scrollPane.setColumnHeaderView(lblNewLabel);
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		tableGetAuthors = new JTable(modelAuthors);
+		tableGetAuthors.setModel(modelAuthors);
+		scrollPane.setViewportView(tableGetAuthors);
+		
+		JPanel painelSrcAuthors = new JPanel();
+		subPanelAuthors.addTab("New tab", null, painelSrcAuthors, null);
+		painelSrcAuthors.setLayout(null);
+		
+		srcAuthorsNameField = new JTextField();
+		srcAuthorsNameField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nomeAddActionPerformed(e);
+			}
+		});
+		srcAuthorsNameField.setColumns(10);
+		srcAuthorsNameField.setBounds(124, 11, 407, 20);
+		painelSrcAuthors.add(srcAuthorsNameField);
+		
+		srcButtonAuthors = new javax.swing.JButton();
+		srcButtonAuthors.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				botaoSrcActionPerformed(e);
+			}
+		});
+		srcButtonAuthors.setText("Buscar");
+		srcButtonAuthors.setForeground(new Color(240, 235, 227));
+		srcButtonAuthors.setFont(new Font("David Libre", Font.PLAIN, 11));
+		srcButtonAuthors.setBackground(new Color(73, 83, 113));
+		srcButtonAuthors.setBounds(568, 10, 89, 23);
+		painelSrcAuthors.add(srcButtonAuthors);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 66, 666, 129);
+		painelSrcAuthors.add(scrollPane_1);
+		
+		tableSrcAuthors = new JTable(modelsrcAuthors);
+		tableSrcAuthors.setModel(modelsrcAuthors);
+		scrollPane_1.setViewportView(tableSrcAuthors);
+		
+		srcAuthorsFnameField = new JTextField();
+		srcAuthorsFnameField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nomeAddActionPerformed(e);
+			}
+		});
+		srcAuthorsFnameField.setColumns(10);
+		srcAuthorsFnameField.setBounds(124, 35, 407, 20);
+		painelSrcAuthors.add(srcAuthorsFnameField);
+		
+		JLabel nameAuthorsLabel_1 = new JLabel("Nome :");
+		nameAuthorsLabel_1.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 14));
+		nameAuthorsLabel_1.setBounds(10, 7, 62, 28);
+		painelSrcAuthors.add(nameAuthorsLabel_1);
+		
+		JLabel nameAuthorsLabel_1_1 = new JLabel("Sobrenome :");
+		nameAuthorsLabel_1_1.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 14));
+		nameAuthorsLabel_1_1.setBounds(10, 27, 82, 28);
+		painelSrcAuthors.add(nameAuthorsLabel_1_1);
+		
+		JPanel painelDelAuthors = new JPanel();
+		subPanelAuthors.addTab("New tab", null, painelDelAuthors, null);
+		painelDelAuthors.setLayout(null);
+		
+		JLabel delAuthorsLabel = new JLabel("Selecione o id de um dos autores abaixo para ser deletado");
+		delAuthorsLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
+		delAuthorsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		delAuthorsLabel.setBounds(10, 11, 666, 20);
+		painelDelAuthors.add(delAuthorsLabel);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(10, 43, 666, 80);
+		painelDelAuthors.add(scrollPane_2);
+		
+		tableDelAuthors = new JTable(modelAuthors);
+		tableDelAuthors.setModel(modelAuthors);
+		scrollPane_2.setViewportView(tableDelAuthors);
+		
+		JLabel idAuthorsLabel = new JLabel("Id :");
+		idAuthorsLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 15));
+		idAuthorsLabel.setBounds(10, 139, 36, 25);
+		painelDelAuthors.add(idAuthorsLabel);
+		
+		delAuthorsField = new JTextField();
+		delAuthorsField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nomeAddActionPerformed(e);
+			}
+		});
+		delAuthorsField.setColumns(10);
+		delAuthorsField.setBounds(43, 141, 633, 20);
+		painelDelAuthors.add(delAuthorsField);
+		
+		delButtonAuthors = new javax.swing.JButton();
+		delButtonAuthors.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				botaoDelActionPerformed(e);
+			}
+		});
+		delButtonAuthors.setText("Deletar");
+		delButtonAuthors.setForeground(new Color(240, 235, 227));
+		delButtonAuthors.setFont(new Font("David Libre", Font.PLAIN, 11));
+		delButtonAuthors.setBackground(new Color(73, 83, 113));
+		delButtonAuthors.setBounds(587, 172, 89, 23);
+		painelDelAuthors.add(delButtonAuthors);
+		
+		JPanel panel_4 = new JPanel();
+		subPanelAuthors.addTab("New tab", null, panel_4, null);
 		
 		JButton addAuthorsButton = new JButton("Adicionar");
 		addAuthorsButton.setFont(new Font("David Libre", Font.PLAIN, 11));
@@ -135,8 +249,51 @@ public class Janela extends JFrame implements ViewJFrame{
 			}
 		});
 		
-		addAuthorsButton.setBounds(29, 124, 89, 23);
+		addAuthorsButton.setBounds(28, 83, 89, 23);
 		PanelAutores.add(addAuthorsButton);
+		
+		getAuthorsButton = new javax.swing.JButton();
+		getAuthorsButton.setText("Listar");
+		getAuthorsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				subPanelAuthors.setVisible(true);
+				subPanelAuthors.setSelectedIndex(1);
+				botaoGetActionPerformed(e);
+			}
+		});
+		getAuthorsButton.setForeground(new Color(240, 235, 227));
+		getAuthorsButton.setFont(new Font("David Libre", Font.PLAIN, 11));
+		getAuthorsButton.setBackground(new Color(73, 83, 113));
+		getAuthorsButton.setBounds(138, 83, 89, 23);
+		PanelAutores.add(getAuthorsButton);
+		
+		srcAuthorsButton = new javax.swing.JButton();
+		srcAuthorsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				subPanelAuthors.setVisible(true);
+				subPanelAuthors.setSelectedIndex(2);
+			}
+		});
+		srcAuthorsButton.setText("Buscar");
+		srcAuthorsButton.setForeground(new Color(240, 235, 227));
+		srcAuthorsButton.setFont(new Font("David Libre", Font.PLAIN, 11));
+		srcAuthorsButton.setBackground(new Color(73, 83, 113));
+		srcAuthorsButton.setBounds(253, 83, 89, 23);
+		PanelAutores.add(srcAuthorsButton);
+		
+		JButton delAuthorsButton = new JButton();
+		delAuthorsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				subPanelAuthors.setVisible(true);
+				subPanelAuthors.setSelectedIndex(3);
+			}
+		});
+		delAuthorsButton.setText("Deletar");
+		delAuthorsButton.setForeground(new Color(240, 235, 227));
+		delAuthorsButton.setFont(new Font("David Libre", Font.PLAIN, 11));
+		delAuthorsButton.setBackground(new Color(73, 83, 113));
+		delAuthorsButton.setBounds(368, 83, 89, 23);
+		PanelAutores.add(delAuthorsButton);
 		
 		JPanel PanelEditoras = new JPanel();
 		PanelEditoras.setBackground(new Color(240, 235, 227));
@@ -152,6 +309,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		JTabbedPane subPanelEditoras = new JTabbedPane(JTabbedPane.BOTTOM);
 		subPanelEditoras.setBounds(0, 192, 702, 198);
 		PanelEditoras.add(subPanelEditoras);
+		subPanelEditoras.setVisible(false);
 		
 		JPanel painelAddEditoras = new JPanel();
 		painelAddEditoras.setBackground(new Color(240, 235, 227));
@@ -217,6 +375,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		JTabbedPane subPanelLivros = new JTabbedPane(JTabbedPane.BOTTOM);
 		subPanelLivros.setBounds(0, 106, 702, 284);
 		PanelLivros.add(subPanelLivros);
+		subPanelLivros.setVisible(false);
 		
 		JPanel painelAddLivros = new JPanel();
 		painelAddLivros.setBackground(new Color(240, 235, 227));
@@ -331,6 +490,10 @@ public class Janela extends JFrame implements ViewJFrame{
 	
 	private javax.swing.JButton sentButtonAuthors;
 	private javax.swing.JButton sentButtonPublishers;
+	private javax.swing.JButton getAuthorsButton;
+	private javax.swing.JButton srcAuthorsButton;
+	private javax.swing.JButton srcButtonAuthors;
+	private javax.swing.JButton delButtonAuthors;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField namePublishersField;
@@ -338,6 +501,8 @@ public class Janela extends JFrame implements ViewJFrame{
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTable tableGetAuthors;
+	
 	
 	
 	private void nomeAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeAddActionPerformed
@@ -346,30 +511,48 @@ public class Janela extends JFrame implements ViewJFrame{
 	private void botaoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddActionPerformed
         // TODO add your handling code here:
     }
+	private void botaoGetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeAddActionPerformed
+        // TODO add your handling code here:
+    }
+	private void botaoSrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeAddActionPerformed
+        // TODO add your handling code here:
+    }
+	private void botaoDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeAddActionPerformed
+        // TODO add your handling code here:
+    }
 	
 	
-	
+	AcessoBancodeDados  ABD = new AcessoBancodeDados();
+	private JTextField srcAuthorsNameField;
+	private JTable tableSrcAuthors;
+	private JTextField srcAuthorsFnameField;
+	private JTable tableDelAuthors;
+	private JTextField delAuthorsField;
 
 	@Override
-	public void listarPublishers(Publishers publishers) {
+	public void listarPublishers(List<Publishers> publishers) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void listarAuthors(Authors authors) {
+	public void listarAuthors(List<Authors> authors) {
+		modelAuthors.setRowCount(0);
+		for(Authors a: authors) {
+			modelAuthors.addRow(new Object[] {a.getAuthors_id(), a.getNome(), a.getFname()});
+			System.out.println(a.getAuthors_id() +" " + a.getNome()+" " + a.getFname());
+		}
+		
+	}
+
+	@Override
+	public void listarBooks(List<Books> books) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void listarBooks(Books books) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void listarBooksauthors(Booksauthors booksauthors) {
+	public void listarBooksauthors(List<Booksauthors> booksauthors) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -416,16 +599,15 @@ public class Janela extends JFrame implements ViewJFrame{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public int delPublishers() {
-		// TODO Auto-generated method stub
-		return 0;
+		 return 0;
 	}
 	@Override
 	public int delAuthors() {
-		// TODO Auto-generated method stub
-		return 0;
+		int id = Integer.parseInt(delAuthorsField.getText());
+		 return id;
 	}
 	@Override
 	public String delBooks() {
@@ -445,7 +627,7 @@ public class Janela extends JFrame implements ViewJFrame{
 	}
 	@Override
 	public void addActionDeletarAuthors(ActionListener al) {
-		// TODO Auto-generated method stub
+		delButtonAuthors.addActionListener(al);
 		
 	}
 	@Override
@@ -517,5 +699,94 @@ public class Janela extends JFrame implements ViewJFrame{
 	public void addActionUpdateBooksauthors(ActionListener al) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void addActionListarPublishers(ActionListener al) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void addActionListarAuthors(ActionListener al) {
+		getAuthorsButton.addActionListener(al);
+		
+	}
+	@Override
+	public void addActionListarBooks(ActionListener al) {
+	
+		
+	}
+	@Override
+	public void addActionListarBooksauthors(ActionListener al) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void addActionBuscaPublishers(ActionListener al) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void srcPublishers(List<Publishers> publishers) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getKeyPublishersBusca() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void addActionBuscaAuthors(ActionListener al) {
+		srcButtonAuthors.addActionListener(al);
+		
+	}
+	@Override
+	public void srcAuthors(List<Authors> authors) {
+		modelsrcAuthors.setRowCount(0);
+		for(Authors a: authors) {
+			modelsrcAuthors.addRow(new Object[] {a.getAuthors_id(), a.getNome(), a.getFname()});
+			System.out.println(a.getAuthors_id() +" " + a.getNome()+" " + a.getFname());
+		}
+		
+	}
+	@Override
+	public String getKeyNameAuthorsBusca() {
+		return srcAuthorsNameField.getText();
+		 
+	}
+	@Override
+	public String getKeyFnameAuthorsBusca() {
+		return srcAuthorsFnameField.getText();
+		
+	}
+	@Override
+	public void addActionBuscaBooks(ActionListener al) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void srcBooks(List<Books> books) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getKeyBooksBusca() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void addActionBuscaBooksauthors(ActionListener al) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void srcBooksauthors(List<Booksauthors> booksauthors) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getKeyBooksauthorsBusca() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

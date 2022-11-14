@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import java.awt.Color;
 
 public class Janela extends JFrame implements ViewJFrame{
 
@@ -47,17 +48,19 @@ public class Janela extends JFrame implements ViewJFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
-		tabbedPane.setBounds(-61, 47, 763, 369);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.RIGHT);
+		tabbedPane.setBackground(new Color(240, 235, 227));
+		tabbedPane.setBounds(0, 47, 775, 369);
 		contentPane.add(tabbedPane);
 		
 		JPanel PanelAutores = new JPanel();
+		PanelAutores.setBackground(new Color(240, 235, 227));
 		tabbedPane.addTab("New tab", null, PanelAutores, null);
 		PanelAutores.setLayout(null);
 		
 		JLabel labelAutores = new JLabel("Autores");
 		labelAutores.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAutores.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 40));
+		labelAutores.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 40));
 		labelAutores.setBounds(213, 11, 204, 67);
 		PanelAutores.add(labelAutores);
 		
@@ -68,17 +71,18 @@ public class Janela extends JFrame implements ViewJFrame{
 		subPanelAuthors.setVisible(false);
 		
 		JPanel painelAddAutores = new JPanel();
+		painelAddAutores.setBackground(new Color(240, 235, 227));
 		subPanelAuthors.addTab("New tab", null, painelAddAutores, null);
 		painelAddAutores.setLayout(null);
 		
 		JLabel nameAuthorsLabel = new JLabel("Nome :");
 		nameAuthorsLabel.setBounds(10, 25, 87, 39);
-		nameAuthorsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		nameAuthorsLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		painelAddAutores.add(nameAuthorsLabel);
 		
 		JLabel lblSobrenome = new JLabel("Sobrenome :");
 		lblSobrenome.setBounds(10, 86, 145, 39);
-		lblSobrenome.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		lblSobrenome.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		painelAddAutores.add(lblSobrenome);
 		
 		nameAuthorsField = new JTextField();
@@ -97,6 +101,9 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddAutores.add(fnameAuthorsField);
 		
 		sentButtonAuthors = new javax.swing.JButton();
+		sentButtonAuthors.setBackground(new Color(73, 83, 113));
+		sentButtonAuthors.setForeground(new Color(240, 235, 227));
+		sentButtonAuthors.setFont(new Font("David Libre", Font.PLAIN, 11));
 		sentButtonAuthors.setBounds(578, 136, 89, 23);
 		sentButtonAuthors.setText("Enviar");
 		sentButtonAuthors.addActionListener(new ActionListener() {
@@ -118,6 +125,9 @@ public class Janela extends JFrame implements ViewJFrame{
 		scrollPane.setViewportView(list);
 		
 		JButton addAuthorsButton = new JButton("Adicionar");
+		addAuthorsButton.setFont(new Font("David Libre", Font.PLAIN, 11));
+		addAuthorsButton.setForeground(new Color(240, 235, 227));
+		addAuthorsButton.setBackground(new Color(73, 83, 113));
 		addAuthorsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				subPanelAuthors.setVisible(true);
@@ -129,12 +139,13 @@ public class Janela extends JFrame implements ViewJFrame{
 		PanelAutores.add(addAuthorsButton);
 		
 		JPanel PanelEditoras = new JPanel();
+		PanelEditoras.setBackground(new Color(240, 235, 227));
 		tabbedPane.addTab("New tab", null, PanelEditoras, null);
 		PanelEditoras.setLayout(null);
 		
 		JLabel labelEditoras = new JLabel("Editoras");
 		labelEditoras.setHorizontalAlignment(SwingConstants.CENTER);
-		labelEditoras.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 40));
+		labelEditoras.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 40));
 		labelEditoras.setBounds(230, 11, 204, 100);
 		PanelEditoras.add(labelEditoras);
 		
@@ -143,16 +154,17 @@ public class Janela extends JFrame implements ViewJFrame{
 		PanelEditoras.add(subPanelEditoras);
 		
 		JPanel painelAddEditoras = new JPanel();
+		painelAddEditoras.setBackground(new Color(240, 235, 227));
 		painelAddEditoras.setLayout(null);
 		subPanelEditoras.addTab("New tab", null, painelAddEditoras, null);
 		
 		JLabel namePublishersLabel = new JLabel("Nome :");
-		namePublishersLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		namePublishersLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		namePublishersLabel.setBounds(10, 25, 87, 39);
 		painelAddEditoras.add(namePublishersLabel);
 		
 		JLabel URLPublishersLabel = new JLabel("URL :");
-		URLPublishersLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		URLPublishersLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		URLPublishersLabel.setBounds(10, 86, 145, 39);
 		painelAddEditoras.add(URLPublishersLabel);
 		
@@ -167,6 +179,9 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddEditoras.add(urlPublishersField);
 		
 		sentButtonPublishers = new javax.swing.JButton();
+		sentButtonPublishers.setBackground(new Color(73, 83, 113));
+		sentButtonPublishers.setForeground(new Color(240, 235, 227));
+		sentButtonPublishers.setFont(new Font("David Libre", Font.PLAIN, 11));
 		sentButtonPublishers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				botaoAddActionPerformed(e);
@@ -177,16 +192,20 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddEditoras.add(sentButtonPublishers);
 		
 		JPanel PanelLivros = new JPanel();
+		PanelLivros.setBackground(new Color(240, 235, 227));
 		tabbedPane.addTab("New tab", null, PanelLivros, null);
 		PanelLivros.setLayout(null);
 		
 		JLabel labelLivros = new JLabel("Livros");
-		labelLivros.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 40));
+		labelLivros.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 40));
 		labelLivros.setHorizontalAlignment(SwingConstants.CENTER);
 		labelLivros.setBounds(217, 11, 204, 57);
 		PanelLivros.add(labelLivros);
 		
 		JButton buttonAutores_1 = new JButton("Autores");
+		buttonAutores_1.setBackground(new Color(73, 83, 113));
+		buttonAutores_1.setForeground(new Color(240, 235, 227));
+		buttonAutores_1.setFont(new Font("David Libre", Font.PLAIN, 11));
 		buttonAutores_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setSelectedIndex(1);
@@ -200,16 +219,17 @@ public class Janela extends JFrame implements ViewJFrame{
 		PanelLivros.add(subPanelLivros);
 		
 		JPanel painelAddLivros = new JPanel();
+		painelAddLivros.setBackground(new Color(240, 235, 227));
 		painelAddLivros.setLayout(null);
 		subPanelLivros.addTab("New tab", null, painelAddLivros, null);
 		
 		JLabel titleBooksLabel = new JLabel("Titulo :");
-		titleBooksLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		titleBooksLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		titleBooksLabel.setBounds(10, 25, 87, 39);
 		painelAddLivros.add(titleBooksLabel);
 		
 		JLabel isbnBooksLabel = new JLabel("ISBN :");
-		isbnBooksLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		isbnBooksLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		isbnBooksLabel.setBounds(10, 56, 145, 39);
 		painelAddLivros.add(isbnBooksLabel);
 		
@@ -224,6 +244,9 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddLivros.add(textField_1);
 		
 		JButton sentButtonBooks = new JButton();
+		sentButtonBooks.setBackground(new Color(73, 83, 113));
+		sentButtonBooks.setForeground(new Color(240, 235, 227));
+		sentButtonBooks.setFont(new Font("David Libre", Font.PLAIN, 11));
 		sentButtonBooks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -233,7 +256,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddLivros.add(sentButtonBooks);
 		
 		JLabel priceBooksLabel = new JLabel("Pre\u00E7o :");
-		priceBooksLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		priceBooksLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		priceBooksLabel.setBounds(10, 87, 145, 39);
 		painelAddLivros.add(priceBooksLabel);
 		
@@ -243,7 +266,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddLivros.add(textField_2);
 		
 		JLabel publisherBooksLabel = new JLabel("Editora :");
-		publisherBooksLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		publisherBooksLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		publisherBooksLabel.setBounds(10, 120, 145, 39);
 		painelAddLivros.add(publisherBooksLabel);
 		
@@ -253,7 +276,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddLivros.add(textField_3);
 		
 		JLabel authorsBooksLabel = new JLabel("Autores :");
-		authorsBooksLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		authorsBooksLabel.setFont(new Font("David Libre", Font.BOLD | Font.ITALIC, 20));
 		authorsBooksLabel.setBounds(10, 152, 145, 39);
 		painelAddLivros.add(authorsBooksLabel);
 		
@@ -263,11 +286,15 @@ public class Janela extends JFrame implements ViewJFrame{
 		painelAddLivros.add(textField_4);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(240, 235, 227));
 		panel.setBounds(0, 0, 692, 47);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JButton buttonAutores = new JButton("Autores");
+		buttonAutores.setFont(new Font("David Libre", Font.PLAIN, 11));
+		buttonAutores.setForeground(new Color(240, 235, 227));
+		buttonAutores.setBackground(new Color(73, 83, 113));
 		buttonAutores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setSelectedIndex(0);
@@ -277,6 +304,9 @@ public class Janela extends JFrame implements ViewJFrame{
 		panel.add(buttonAutores);
 		
 		JButton buttonEditoras = new JButton("Editoras");
+		buttonEditoras.setFont(new Font("David Libre", Font.PLAIN, 11));
+		buttonEditoras.setForeground(new Color(240, 235, 227));
+		buttonEditoras.setBackground(new Color(73, 83, 113));
 		buttonEditoras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setSelectedIndex(1);
@@ -286,6 +316,9 @@ public class Janela extends JFrame implements ViewJFrame{
 		panel.add(buttonEditoras);
 		
 		JButton buttonLivros = new JButton("Livros");
+		buttonLivros.setFont(new Font("David Libre", Font.PLAIN, 11));
+		buttonLivros.setForeground(new Color(240, 235, 227));
+		buttonLivros.setBackground(new Color(73, 83, 113));
 		buttonLivros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setSelectedIndex(2);

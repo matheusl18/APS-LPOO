@@ -1209,8 +1209,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		return new Books(title, isbn, id, price);
 	}
 	@Override
-	public List<Booksauthors> addBooksauthors() {
-		List<Booksauthors> booksauthors = new ArrayList<>();
+	public Booksauthors addBooksauthors() {
 		String isbn = isbnBooksField.getText();
 		int seq = Integer.parseInt(seqBooksField.getText());
 		comboBoxAutBooks = new JComboBox();
@@ -1221,9 +1220,7 @@ public class Janela extends JFrame implements ViewJFrame{
 		if(input == JOptionPane.OK_OPTION) {
 			Authors a = (Authors) comboBoxAuthors.getSelectedItem();
 			int id = a.getAuthors_id();
-			Booksauthors ba = new Booksauthors(isbn, id, seq);
-			 booksauthors.add(ba);
-			return booksauthors;
+			return new Booksauthors(isbn, id, seq);
 		}else {
 			return null;
 		}

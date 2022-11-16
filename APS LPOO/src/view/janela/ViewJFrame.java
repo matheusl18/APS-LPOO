@@ -27,7 +27,7 @@ public interface ViewJFrame {
 	public void addActionAdicionarBooks(ActionListener al);
 	Books addBooks();
 	public void addActionAdicionarBooksauthors(ActionListener al);
-	public List<Booksauthors> addBooksauthors();
+	Booksauthors addBooksauthors();
 	
 	public void addActionDeletarPublishers(ActionListener al);
 	int delPublishers();

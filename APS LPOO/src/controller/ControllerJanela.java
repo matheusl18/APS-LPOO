@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dao.Dao;
 import entidades.Authors;
 import entidades.Booksauthors;
@@ -50,6 +52,10 @@ public class ControllerJanela {
         view.addActionBuscaAuthors(new AcaoBuscaAuthors());
         view.addActionBuscaBooks(new AcaoBuscaBooks());
         view.addActionBuscaBooksauthors(new AcaoBuscaBooksauthors());
+        
+        view.addActionListarBoxAuthors(new AcaoBoxAuthors());
+        view.addActionListarBoxPublishers(new AcaoBoxPublishers());
+        view.addActionListarBoxBooks(new AcaoBoxBooks());
     }
     
     class AcaoListarPublishers implements ActionListener{
@@ -180,7 +186,12 @@ public class ControllerJanela {
         @Override
         public void actionPerformed(ActionEvent e) {
         	int id = view.delPublishers();
-        	model.delPublishers(id);
+        	int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja escluir esse autor? fazer isso ira excluir livros que depende dele");
+    		if(resposta == 0) {
+    			model.delPublishers(id);
+    		}else {
+    			
+    		}
         }
     }
     class AcaoDeletaAuthors implements ActionListener{
@@ -188,7 +199,12 @@ public class ControllerJanela {
         @Override
         public void actionPerformed(ActionEvent e) {
         	int id = view.delAuthors();
-        	model.delAuthors(id);
+        	int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja escluir essa editora? fazer isso ira excluir livros que depende dela");
+    		if(resposta == 0) {
+    			model.delAuthors(id);
+    		}else {
+    			
+    		}
         }
     }
     class AcaoDeletaBooks implements ActionListener{
@@ -196,7 +212,7 @@ public class ControllerJanela {
         @Override
         public void actionPerformed(ActionEvent e) {
         	String isbn = view.delBooks();
-        	model.delBooks(isbn);
+    		model.delBooks(isbn);
         }
     }
     class AcaoDeletaBooksauthors implements ActionListener{
@@ -231,6 +247,8 @@ public class ControllerJanela {
         public void actionPerformed(ActionEvent e) {
         	Books book = view.updateBooks();
         	model.updateBooks(book);;
+        	//Booksauthors booksauthor = view.updateBooksauthors();
+        	//model.updateBooksauthors(booksauthor);;
         }
     }
     class AcaoUpdateBooksauthors implements ActionListener{
@@ -241,5 +259,37 @@ public class ControllerJanela {
         	model.updateBooksauthors(booksauthor);;
         }
     }
+    
+    
+    class AcaoBoxAuthors implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	List<Authors> authors;
+        	authors = model.getAuthors();
+        	view.boxAuthors(authors);
+        }
+    }
+    
+    class AcaoBoxPublishers implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	List<Publishers> publishers;
+        	publishers = model.getPublishers();
+        	view.boxPublishers(publishers);
+        }
+    }
+    
+    class AcaoBoxBooks implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	List<Books> books;
+        	books = model.getBooks();
+        	view.boxBooks(books);
+        }
+    }
+    
 
 }

@@ -27,7 +27,7 @@ public interface ViewJFrame {
 	public void addActionAdicionarBooks(ActionListener al);
 	Books addBooks();
 	public void addActionAdicionarBooksauthors(ActionListener al);
-	Booksauthors addBooksauthors();
+	public List<Booksauthors> addBooksauthors();
 	
 	public void addActionDeletarPublishers(ActionListener al);
 	int delPublishers();
@@ -46,9 +46,6 @@ public interface ViewJFrame {
 	Books updateBooks();
 	public void addActionUpdateBooksauthors(ActionListener al);
 	Booksauthors updateBooksauthors();
-	String updateString();
-	int updateInt();
-	double updateDouble();
 	
 	public void addActionBuscaPublishers(ActionListener al);
 	public void srcPublishers(List<Publishers> publishers);
@@ -63,6 +60,13 @@ public interface ViewJFrame {
 	public void addActionBuscaBooksauthors(ActionListener al);
 	public void srcBooksauthors(List<Booksauthors> booksauthors);
 	public String getKeyBooksauthorsBusca();
+	
+	public void addActionListarBoxAuthors(ActionListener al);
+	public void boxAuthors(List<Authors> authors);
+	public void addActionListarBoxPublishers(ActionListener al);
+	public void boxPublishers(List<Publishers> publishers);
+	public void addActionListarBoxBooks(ActionListener al);
+	public void boxBooks(List<Books> books);
 	
 
 }

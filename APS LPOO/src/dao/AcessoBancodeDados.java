@@ -107,7 +107,7 @@ public class AcessoBancodeDados implements Dao{
 		}
 	
 	@Override
-	public List<Publishers> getpublishers() {
+	public List<Publishers> getPublishers() {
 
 		  List<Publishers> publishers = new ArrayList<>();
 
@@ -279,14 +279,14 @@ public class AcessoBancodeDados implements Dao{
 			PreparedStatement pstm = c.prepareStatement(query);
 			
 			pstm.setString(1, "%" + name + "%");
-			pstm.setString(1, "%" + fname + "%");
+			pstm.setString(2, "%" + fname + "%");
 			
 			ResultSet rs = pstm.executeQuery();
 			
 			while(rs.next()) {
-			    int authors_id = rs.getInt("authors_id");
-			    String nome = rs.getString("nome"); 
-			    String fnome = rs.getString("fnome");
+			    int authors_id = rs.getInt("author_id");
+			    String nome = rs.getString("name"); 
+			    String fnome = rs.getString("fname");
 				Authors author = new Authors (authors_id, nome, fnome);
 				authors.add(author);
 			}
@@ -311,7 +311,7 @@ public class AcessoBancodeDados implements Dao{
 			pstm.setString(1, books.getTitle());
 		    pstm.setString(2, books.getIsbn());
 		    pstm.setInt(3, books.getPublisher_id());
-		    pstm.setInt(4, books.getPrice());
+		    pstm.setDouble(4, books.getPrice());
 
 		    int result = pstm.executeUpdate();
 
@@ -425,7 +425,7 @@ public class AcessoBancodeDados implements Dao{
 				String title = rs.getString("title");
 			    String isbn = rs.getString("isbn");
 			    int publisher_id = rs.getInt("publisher_id");
-			    int price = rs.getInt("Price");
+			    double price = rs.getDouble("Price");
 				Books book = new Books(title, isbn, publisher_id, price);
 				books.add(book);
 			}
@@ -490,7 +490,7 @@ public class AcessoBancodeDados implements Dao{
 	
 	@Override
 	public void updateBooksauthors(Booksauthors booksauthors) {
-		final String query = "UPDATE booksauthors SET isbn = (?), seq_no = (?) WHERE author_id = (?)";
+		final String query = "UPDATE booksauthors SET author_id = (?), seq_no = (?) WHERE isbn = (?)";
 		
 		try(Connection c = DriverManager.getConnection(URL, USER, PASS)){
 			
@@ -498,9 +498,9 @@ public class AcessoBancodeDados implements Dao{
 			
 			
 			
-			pstm.setString(1, booksauthors.getisbn());
+			pstm.setInt(1, booksauthors.getauthor_id());
 		    pstm.setInt(2, booksauthors.getseq_no());
-		    pstm.setInt(3, booksauthors.getauthor_id());
+		    pstm.setString(3, booksauthors.getisbn());
 		   
 
 		    int result = pstm.executeUpdate();

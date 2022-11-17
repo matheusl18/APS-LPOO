@@ -13,7 +13,7 @@ public interface Dao {
 	public void addPublishers(Publishers publishers);
 	public void delPublishers(int id);
 	public void updatePublishers(Publishers publisher);
-	public List<Publishers> getpublishers();
+	public List<Publishers> getPublishers();
 	public List<Publishers> buscaPublishers(String nomeKey);
 	
 	public void addAuthors(Authors authors);

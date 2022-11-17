@@ -18,9 +18,8 @@ import entidades.Booksauthors;
 public class Teste {
 	public static void main(String[] args) {
 		AcessoBancodeDados.testaConnection();
-		//View view = new ViewTerminal();
+		//sView view = new ViewTerminal();
 		//Dao model = new AcessoBancodeDados();
-		
 		//new ControllerTerminal(view, model).init();
 	
 	

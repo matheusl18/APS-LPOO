@@ -45,7 +45,7 @@ public class ViewTerminal implements View{
 			
 	}
 	AcessoBancodeDados  ABD = new AcessoBancodeDados();
-	List<Publishers> publishers = ABD.getpublishers();
+	List<Publishers> publishers = ABD.getPublishers();
 	List<Authors> authors = ABD.getAuthors();
 	List<Books> books = ABD.getBooks();
 	List<Booksauthors> booksauthors = ABD.getBooksauthors();

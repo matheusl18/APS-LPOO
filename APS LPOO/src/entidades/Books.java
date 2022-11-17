@@ -5,9 +5,9 @@ public class Books {
 	 String title;
 	 String isbn;
 	 int publisher_id;
-	 int price; 
+	 double price; 
 	 
-	 public Books(String atitle, String aisbn, int apublisher_id, int aprice) {
+	 public Books(String atitle, String aisbn, int apublisher_id, double aprice) {
 		 this.title = atitle;
 		 this.isbn= aisbn;
 		 this.publisher_id= apublisher_id;
@@ -26,7 +26,7 @@ public class Books {
 		 return this.publisher_id;
 	 }
 	 
-	 public int getPrice() {
+	 public double getPrice() {
 		 return this.price;
 	 }
 	 

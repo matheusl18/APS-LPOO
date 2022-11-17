@@ -48,8 +48,8 @@ public class Janela extends JFrame implements ViewJFrame{
 	DefaultTableModel modelsrcAuthors = new DefaultTableModel(new Object[] {"ID", "Nome", "Sobrenome"}, 0);
 	DefaultTableModel modelPublishers = new DefaultTableModel(new Object[] {"ID", "Nome", "URL"}, 0);
 	DefaultTableModel modelsrcPublishers = new DefaultTableModel(new Object[] {"ID", "Nome", "URL"}, 0);
-	DefaultTableModel modelBooks = new DefaultTableModel(new Object[] {"Titulo", "Isbn", "Publisher_id", "PreÃ§o"}, 0);
-	DefaultTableModel modelsrcBooks = new DefaultTableModel(new Object[] {"Titulo", "Isbn", "Publisher_id", "PreÃ§o"}, 0);
+	DefaultTableModel modelBooks = new DefaultTableModel(new Object[] {"Titulo", "Isbn", "Publisher_id", "Preço"}, 0);
+	DefaultTableModel modelsrcBooks = new DefaultTableModel(new Object[] {"Titulo", "Isbn", "Publisher_id", "Preço"}, 0);
 	DefaultComboBoxModel<Authors> boxAuthors = new DefaultComboBoxModel<Authors>();
 	DefaultComboBoxModel<Publishers> boxPublishers = new DefaultComboBoxModel<Publishers>();
 	DefaultComboBoxModel<Books> boxBooks = new DefaultComboBoxModel<Books>();
@@ -1221,6 +1221,7 @@ public class Janela extends JFrame implements ViewJFrame{
 			Authors a = (Authors) comboBoxAuthors.getSelectedItem();
 			int id = a.getAuthors_id();
 			return new Booksauthors(isbn, id, seq);
+
 		}else {
 			return null;
 		}
